@@ -4,31 +4,55 @@
     android:id="@+id/comicItemContainer"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_items_height"
-    app:cardBackgroundColor="@color/black">
+    app:cardBackgroundColor="@color/black"
+    app:cardCornerRadius="0dp"
+    android:animateLayoutChanges="true">
 
-    <ImageView
-        android:id="@+id/comicItemImage"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop" />
+        android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0.7"
-        android:background="@drawable/horizontal_gradient" />
+        <ImageView
+            android:id="@+id/comicItemImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/comicItemTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:lines="1"
-        android:paddingStart="@dimen/standard_padding"
-        android:paddingEnd="@dimen/standard_padding"
-        android:text="Title"
-        android:textColor="@color/white"
-        android:textSize="22sp" />
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.7"
+            android:background="@drawable/horizontal_gradient" />
+
+        <TextView
+            android:id="@+id/comicItemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_items_height"
+            android:layout_gravity="center|top"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:paddingStart="@dimen/standard_padding"
+            android:paddingEnd="@dimen/standard_padding"
+            android:text="Title"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+        <FrameLayout
+            android:id="@+id/comicItemDetails"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_item_expanded_height"
+            android:visibility="invisible">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="@dimen/standard_padding"
+                android:background="@null"
+                app:srcCompat="@drawable/ic_characters" />
+        </FrameLayout>
+    </FrameLayout>
 
 </androidx.cardview.widget.CardView>

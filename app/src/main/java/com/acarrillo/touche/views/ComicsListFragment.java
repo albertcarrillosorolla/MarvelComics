@@ -26,6 +26,8 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
         mViewBinding = ComicsListFragmentBinding.bind(view);
         subscribeToData();
         initRecyclerView();
+
+        mViewModel.loadComics();
     }
 
     @SuppressLint("FragmentLiveDataObserve")
@@ -38,13 +40,22 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
                 },
                 comics ->{
                     mComicsListAdapter.setData(comics);
-                    showSnackbar(comics.get(3).getImage(0));
                 }));
+        mViewModel.getExpandedItemId().observe(
+            this,
+            expandedId -> {
+                mComicsListAdapter.setExpandedItem(expandedId);
+            }
+        );
     }
 
     private void initRecyclerView()
     {
         mComicsListAdapter = new ComicsListAdapter();
+        mComicsListAdapter.setOnItemClickedListener(
+            (v, item, position) -> {
+                mViewModel.selectExpandedItem(item.getId());
+            });
         mViewBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mViewBinding.recyclerView.setAdapter(mComicsListAdapter);
     }

@@ -22,6 +22,11 @@ public class ComicModel implements Model {
         return mImages.get(i);
     }
 
+    public int getNumImages()
+    {
+        return mImages == null ? 0 : mImages.size();
+    }
+
     List<String> mImages;
 
     public ComicModel(int id, String title, List<String> images)

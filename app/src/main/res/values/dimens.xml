@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="list_items_height">60dp</dimen>
+    <dimen name="list_item_expanded_height">240dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
 </resources>
