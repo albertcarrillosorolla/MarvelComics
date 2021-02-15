@@ -1,15 +1,11 @@
-package com.acarrillo.touche.views;
+package com.acarrillo.touche.views.base;
 
 import android.os.Bundle;
-import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.acarrillo.touche.R;
 
 public class MainActivity extends AppCompatActivity {
-
-    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.acarrillo.touche.views;
+package com.acarrillo.touche.views.base;
 
 import android.app.Application;
 

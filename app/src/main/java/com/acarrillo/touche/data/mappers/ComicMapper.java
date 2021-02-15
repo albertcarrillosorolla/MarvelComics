@@ -11,7 +11,11 @@ public class ComicMapper {
     {
         List<ComicModel> comicList = new ArrayList<ComicModel>();
         for (ComicsListResponse.Comic c: comicsListResponse.getComics()) {
-            comicList.add(new ComicModel(c.id, c.title, null));
+            ArrayList<String> images = new ArrayList<String>();
+            for(ComicsListResponse.Image image: c.images){
+                images.add(image.path+"."+image.extension);
+            }
+            comicList.add(new ComicModel(c.id, c.title, images));
         }
         return comicList;
     }

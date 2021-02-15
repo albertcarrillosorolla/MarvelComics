@@ -17,8 +17,9 @@ public class ComicModel implements Model {
         return mTitle;
     }
 
-    public List<String> getImages() {
-        return mImages;
+    public String getImage(int i) {
+        if(mImages.size()<=i) return "";
+        return mImages.get(i);
     }
 
     List<String> mImages;

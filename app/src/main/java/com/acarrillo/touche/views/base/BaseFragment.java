@@ -1,4 +1,4 @@
-package com.acarrillo.touche.views;
+package com.acarrillo.touche.views.base;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -57,4 +57,3 @@ public class BaseFragment<VM extends ViewModel> extends Fragment {
         return new ViewModelProvider(this).get(vmClass);
     }
 }
-
