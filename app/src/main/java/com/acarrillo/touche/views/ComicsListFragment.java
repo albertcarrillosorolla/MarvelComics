@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.acarrillo.touche.R;
 import com.acarrillo.touche.databinding.ComicsListFragmentBinding;
@@ -58,5 +59,6 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
             });
         mViewBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mViewBinding.recyclerView.setAdapter(mComicsListAdapter);
+        mViewBinding.recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
     }
 }

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_items_height"
     app:cardBackgroundColor="@color/black"
-    app:cardCornerRadius="0dp"
-    android:animateLayoutChanges="true">
+    app:cardCornerRadius="0dp">
 
     <FrameLayout
         android:layout_width="match_parent"
