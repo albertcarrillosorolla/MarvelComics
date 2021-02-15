@@ -1,13 +1,13 @@
 package com.acarrillo.touche.views;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.acarrillo.touche.R;
 import com.acarrillo.touche.databinding.ComicsListFragmentBinding;
@@ -27,8 +27,8 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
         mViewBinding = ComicsListFragmentBinding.bind(view);
         subscribeToData();
         initRecyclerView();
-
         mViewModel.loadComics();
+        mActivity.setProgressbar(true);
     }
 
     @SuppressLint("FragmentLiveDataObserve")
@@ -38,9 +38,11 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
             result -> result.apply(
                 error -> {
                     showSnackbar(error.getMessage());
+                    mActivity.setProgressbar(false);
                 },
                 comics ->{
                     mComicsListAdapter.setData(comics);
+                    mActivity.setProgressbar(false);
                 }));
         mViewModel.getExpandedItemId().observe(
             this,
