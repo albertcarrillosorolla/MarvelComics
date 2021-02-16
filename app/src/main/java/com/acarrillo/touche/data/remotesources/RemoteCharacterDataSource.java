@@ -21,7 +21,7 @@ public class RemoteCharacterDataSource implements DataSource<List<CharacterEntit
     CharacterMapper mCharacterMapper;
 
     public RemoteCharacterDataSource() {
-        //This should be injected by dagger
+        //TODO: This should be injected by Dagger
         mCharacterMapper = new CharacterMapper();
     }
 

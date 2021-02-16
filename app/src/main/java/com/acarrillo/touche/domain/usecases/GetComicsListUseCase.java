@@ -11,7 +11,7 @@ public class GetComicsListUseCase implements UseCase<List<ComicEntity>, GetComic
 
     public GetComicsListUseCase(ComicRepository comicRepository)
     {
-        //This should be injected by dagger
+        //TODO: This should be injected by dagger
         mComicRepository = comicRepository;
     }
 

@@ -11,6 +11,7 @@ public class GetCharactersByComicIdUseCase implements UseCase<List<CharacterEnti
     CharacterRepository mCharacterRepository;
 
     public GetCharactersByComicIdUseCase(CharacterRepository characterRepository){
+        //TODO: This should be injected by Dagger
         mCharacterRepository = characterRepository;
     }
 

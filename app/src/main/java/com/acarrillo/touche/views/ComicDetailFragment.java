@@ -1,6 +1,5 @@
 package com.acarrillo.touche.views;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.transition.TransitionInflater;
 
 import com.acarrillo.touche.R;
 import com.acarrillo.touche.databinding.ComicDetailFragmentBinding;

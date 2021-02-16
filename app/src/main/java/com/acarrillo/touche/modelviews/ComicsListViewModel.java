@@ -21,9 +21,9 @@ public class ComicsListViewModel extends ViewModel {
     MutableLiveData<Error> mError;
     MutableLiveData<Integer> mExpandedComicItemPosition;
 
-    public ComicsListViewModel()
-    {
-        //This should be injected by dagger
+    public ComicsListViewModel() {
+
+        //TODO: This should be injected by dagger
         mGetComicsListUseCase = new UseCaseFactory().getComicsListUseCase(new ComicRepositoryImpl());
 
         mExpandedComicItemPosition = new MutableLiveData<>();
@@ -38,26 +38,27 @@ public class ComicsListViewModel extends ViewModel {
         return mComicsList;
     }
 
-    public LiveData<Integer> getExpandedItemPosition()
-    {
+    public LiveData<Integer> getExpandedItemPosition() {
         return mExpandedComicItemPosition;
     }
 
-    public LiveData<Error> getErrors() { return mError; }
+    public LiveData<Error> getErrors() {
+        return mError;
+    }
 
     public void loadMoreComics() {
         int offset = 0;
         if(mComicsList.getValue() != null) offset = mComicsList.getValue().size();
 
         mGetComicsListUseCase.execute(
-            (result) -> result.apply(
-                (error) -> mError.setValue(error),
-                (response) -> {
-                    List<ComicEntity> currentComics = (mComicsList.getValue() == null) ? new ArrayList<>() : mComicsList.getValue();
-                    currentComics.addAll(response);
-                    mComicsList.setValue(currentComics);
-                }
-            ), new GetComicsListUseCase.Params(offset, ItemsPerPage));
+                (result) -> result.apply(
+                        (error) -> mError.setValue(error),
+                        (response) -> {
+                            List<ComicEntity> currentComics = (mComicsList.getValue() == null) ? new ArrayList<>() : mComicsList.getValue();
+                            currentComics.addAll(response);
+                            mComicsList.setValue(currentComics);
+                        }
+                ), new GetComicsListUseCase.Params(offset, ItemsPerPage));
     }
 
     public void selectExpandedItem(int position) {

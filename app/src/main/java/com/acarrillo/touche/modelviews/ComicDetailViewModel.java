@@ -19,6 +19,7 @@ public class ComicDetailViewModel extends ViewModel {
     GetCharactersByComicIdUseCase mGetCharactersByComicIdUseCase;
 
     public ComicDetailViewModel() {
+
         //TODO: This should be injected by Dagger
         mGetCharactersByComicIdUseCase = new UseCaseFactory().getCharactersByComicIdUseCase(new CharacterRepositoryImpl());
 

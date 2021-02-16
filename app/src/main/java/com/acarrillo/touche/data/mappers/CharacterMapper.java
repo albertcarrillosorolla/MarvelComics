@@ -2,7 +2,6 @@ package com.acarrillo.touche.data.mappers;
 
 import com.acarrillo.touche.data.remotesources.responses.CharactersListResponse;
 import com.acarrillo.touche.domain.entities.CharacterEntity;
-import com.acarrillo.touche.domain.entities.ComicEntity;
 
 import java.util.ArrayList;
 import java.util.List;

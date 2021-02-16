@@ -2,8 +2,6 @@ package com.acarrillo.touche.domain.entities;
 
 import android.os.Parcel;
 
-import java.util.List;
-
 public class ComicEntity implements Entity {
 
     private int mId;

@@ -1,6 +1,5 @@
 package com.acarrillo.touche.views;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,9 +42,9 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
         });
         mViewModel.getExpandedItemPosition().observe(
                 getViewLifecycleOwner(),
-            expandedId -> {
-                mComicsListAdapter.setExpandedItem(expandedId);
-            }
+                expandedId -> {
+                    mComicsListAdapter.setExpandedItem(expandedId);
+                }
         );
         mViewModel.getErrors().observe(
                 getViewLifecycleOwner(),
@@ -73,11 +72,11 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
                     goToComicDetail(v, item);
                 });
         mViewBinding.recyclerView.setOnScrollChangeListener(
-            (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-                if (!mViewBinding.recyclerView.canScrollVertically(1)) {
-                    mViewModel.loadMoreComics();
-                }
-            });
+                (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                    if (!mViewBinding.recyclerView.canScrollVertically(1)) {
+                        mViewModel.loadMoreComics();
+                    }
+                });
     }
 
     private void goToComicDetail(View v, ComicEntity item){

@@ -7,9 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.acarrillo.touche.databinding.ComicDetailCharacterItemBinding;
-import com.acarrillo.touche.databinding.ComicListItemBinding;
 import com.acarrillo.touche.domain.entities.CharacterEntity;
-import com.acarrillo.touche.domain.entities.ComicEntity;
 
 import java.util.List;
 
