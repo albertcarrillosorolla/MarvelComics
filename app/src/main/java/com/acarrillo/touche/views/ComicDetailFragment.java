@@ -45,6 +45,7 @@ public class ComicDetailFragment extends BaseFragment<ComicDetailViewModel> {
         mViewModel.getCharacters().observe(
                 this,
                 characters ->{
+                    if(characters.size()==0) showNoCharacters();
                     mCharactersListAdapter.setData(characters);
                 }
         );
@@ -59,5 +60,10 @@ public class ComicDetailFragment extends BaseFragment<ComicDetailViewModel> {
         mViewBinding.characterRecyclerView.setLayoutManager(
                 new GridLayoutManager(mActivity, 1, GridLayoutManager.HORIZONTAL, false));
         mViewBinding.characterRecyclerView.setAdapter(mCharactersListAdapter);
+    }
+
+    void showNoCharacters(){
+        mViewBinding.characterRecyclerView.setVisibility(View.INVISIBLE);
+        mViewBinding.noCharactersTv.setVisibility(View.VISIBLE);
     }
 }

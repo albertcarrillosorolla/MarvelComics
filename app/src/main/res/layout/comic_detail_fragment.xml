@@ -30,7 +30,7 @@
             android:id="@+id/gradedMask"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:alpha="0.6"
+            android:alpha="0.7"
             android:background="@drawable/vertical_gradient"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/title"
@@ -41,7 +41,7 @@
             android:id="@+id/mask"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:alpha="0.6"
+            android:alpha="0.7"
             android:background="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,4 +89,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerFrame"
         />
+
+    <TextView
+        android:id="@+id/noCharactersTv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/no_characters"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/characterRecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/characterRecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/characterRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/headerFrame" />
 </androidx.constraintlayout.widget.ConstraintLayout>

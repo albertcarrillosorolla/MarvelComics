@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso;
 public class ComicsListViewHolder extends RecyclerView.ViewHolder {
 
     ComicListItemBinding mBinding;
-    boolean mWasExpanded;
 
     public ComicsListViewHolder(ComicListItemBinding binding) {
         super(binding.getRoot());
@@ -36,13 +35,13 @@ public class ComicsListViewHolder extends RecyclerView.ViewHolder {
 
     public void setExpanded(boolean expanded)
     {
-        if(expanded && !mWasExpanded) {
+        boolean wasExpanded = mBinding.comicItemDetails.getVisibility() == View.VISIBLE;
+        if(expanded && !wasExpanded) {
             expand();
         }
-        if(!expanded && mWasExpanded) {
+        if(!expanded && wasExpanded) {
             collapse();
         }
-        mWasExpanded = expanded;
     }
 
     public void expand()
