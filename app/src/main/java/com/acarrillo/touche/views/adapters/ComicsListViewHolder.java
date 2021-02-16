@@ -23,9 +23,9 @@ public class ComicsListViewHolder extends RecyclerView.ViewHolder {
     public void setData(ComicEntity comic, boolean expanded)
     {
         mBinding.comicItemTitle.setText(comic.getTitle());
-        if(comic.getNumImages()!=0){
+        if(comic.getImage()!=""){
             Picasso.get()
-                    .load(comic.getImage(0))
+                    .load(comic.getImage())
                     .into(mBinding.comicItemImage);
         }else{
             mBinding.comicItemImage.setVisibility(View.GONE);

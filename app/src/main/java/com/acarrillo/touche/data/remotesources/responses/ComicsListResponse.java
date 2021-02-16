@@ -46,6 +46,10 @@ public class ComicsListResponse {
         @Expose()
         public String title;
 
+        @SerializedName("description")
+        @Expose()
+        public String description;
+
         @SerializedName("images")
         @Expose()
         public List<Image> images;

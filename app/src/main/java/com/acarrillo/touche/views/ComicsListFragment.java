@@ -17,8 +17,8 @@ import com.acarrillo.touche.views.adapters.ComicsListAdapter;
 import com.acarrillo.touche.views.base.BaseFragment;
 
 public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
-    ComicsListFragmentBinding mViewBinding;
-    ComicsListAdapter mComicsListAdapter;
+    private ComicsListFragmentBinding mViewBinding;
+    private ComicsListAdapter mComicsListAdapter;
 
     public ComicsListFragment() { super(R.layout.comics_list_fragment); }
 
@@ -70,8 +70,9 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
                 });
         mComicsListAdapter.setOnGoToDetailClickedListener(
                 (v, item, position) -> {
-
-                    Navigation.findNavController(v).navigate(R.id.action_comicsListFragment_to_comicDetailFragment);
+                    Navigation.findNavController(v).navigate(
+                            ComicsListFragmentDirections.actionComicsListFragmentToComicDetailFragment(item)
+                    );
                 });
         mViewBinding.recyclerView.setOnScrollChangeListener(
             (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {

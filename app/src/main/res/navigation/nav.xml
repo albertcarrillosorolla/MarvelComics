@@ -17,5 +17,9 @@
     <fragment
         android:id="@+id/comicDetailFragment"
         android:name="com.acarrillo.touche.views.ComicDetailFragment"
-        android:label="ComicDetailFragment" />
+        android:label="ComicDetailFragment" >
+        <argument
+            android:name="comic"
+            app:argType="com.acarrillo.touche.domain.entities.ComicEntity" />
+    </fragment>
 </navigation>

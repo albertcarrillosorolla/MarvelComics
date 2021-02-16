@@ -8,6 +8,8 @@ public class ComicEntity implements Entity {
 
     private int mId;
     private String mTitle;
+    private String mDescription;
+    private String mImage;
 
     public int getId() {
         return mId;
@@ -17,36 +19,35 @@ public class ComicEntity implements Entity {
         return mTitle;
     }
 
-    public String getImage(int i) {
-        if(mImages.size()<=i) return "";
-        return mImages.get(i);
+    public String getImage() {
+        return mImage;
     }
 
-    public int getNumImages()
-    {
-        return mImages == null ? 0 : mImages.size();
+    public String getDescription(){
+        return mDescription;
     }
 
-    List<String> mImages;
-
-    public ComicEntity(int id, String title, List<String> images)
+    public ComicEntity(int id, String title, String description, String image)
     {
         mId = id;
         mTitle = title;
-        mImages = images;
+        mDescription = description;
+        mImage = image;
     }
 
     protected ComicEntity(Parcel in) {
         mId = in.readInt();
         mTitle = in.readString();
-        mImages = in.createStringArrayList();
+        mDescription = in.readString();
+        mImage = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mId);
         dest.writeString(mTitle);
-        dest.writeStringList(mImages);
+        dest.writeString(mDescription);
+        dest.writeString(mImage);
     }
 
     @Override

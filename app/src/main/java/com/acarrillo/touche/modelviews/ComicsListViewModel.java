@@ -23,7 +23,7 @@ public class ComicsListViewModel extends ViewModel {
 
     public ComicsListViewModel()
     {
-        //TODO: This should be injected by dagger
+        //This should be injected by dagger
         mGetComicsListUseCase = new UseCaseFactory().getComicsListUseCase(new ComicRepositoryImpl());
 
         mComicsList = new MutableLiveData<>();
