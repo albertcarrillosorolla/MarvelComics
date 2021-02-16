@@ -33,7 +33,7 @@ In the presentation layer it's been used MVVM, actually View and ViewModel, as t
 
 ## LIBRARIES
 
-Navigation between fragments (list and detail): androidx.navigation.
+Navigation and safe-args between fragments (list and detail): androidx.navigation.
 
 Google Architecture Components: MVVM and LiveData.
 
@@ -43,7 +43,7 @@ Retrofit2 and GSON to fetch the data from the Marvel API.
 
 ## TO DOs
 
-All the dependencies have been injected through constructors so, as an example, the implementation of the Repository (infra layer) has been injected from the presentation (infra layer) to the usecase, which knows it's interface (domain level) but does not know the implementation (infra layer). This keeps the Clean Architecture but would be much simpler using a DI library as Dagger2 or Koin.
+All the dependencies have been injected through constructors so, as an example, the implementation of the Repository (infra layer) has been injected from the presentation (infra layer) to the usecase, that knows it's interface (domain level) but does not know the implementation (infra layer). This keeps the Clean Architecture but would be much simpler using a DI library as Dagger2 or Koin.
 
 LiveData has been used to asyncronously coordinate the VM with the View and a custom generic Handler has been used to coordinate the async data processes with the VM. Maybe RXJava would work better for this coordination.
 
