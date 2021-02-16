@@ -15,6 +15,7 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListViewHolder
 
     List<ComicEntity> mData;
     OnItemClickedListener<ComicEntity> mOnItemClickedListener;
+    OnItemClickedListener<ComicEntity> mOnGoToDetailClickedListener;
     int mPositionExpanded = -1;
 
     @NonNull
@@ -30,6 +31,9 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListViewHolder
         holder.mBinding.comicItemContainer.setOnClickListener(v -> {
             mOnItemClickedListener.onClick(v, mData.get(position), position);
         });
+        holder.mBinding.goToDetails.setOnClickListener(v -> {
+            mOnGoToDetailClickedListener.onClick(v, mData.get(position), position);
+        });
     }
 
     @Override
@@ -37,22 +41,23 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListViewHolder
         return (mData==null) ? 0 : mData.size();
     }
 
-    public void setData(List<ComicEntity> data)
-    {
+    public void setData(List<ComicEntity> data) {
         mData = data;
         notifyDataSetChanged();
     }
 
-    public void setExpandedItem(int position)
-    {
+    public void setExpandedItem(int position) {
         notifyItemChanged(mPositionExpanded);
         mPositionExpanded = position;
         notifyItemChanged(mPositionExpanded);
     }
 
-    public void setOnItemClickedListener(OnItemClickedListener<ComicEntity> onItemClickedListener)
-    {
+    public void setOnItemClickedListener(OnItemClickedListener<ComicEntity> onItemClickedListener) {
         mOnItemClickedListener = onItemClickedListener;
+    }
+
+    public void setOnGoToDetailClickedListener(OnItemClickedListener<ComicEntity> onGoToDetailClickedListener) {
+        mOnGoToDetailClickedListener = onGoToDetailClickedListener;
     }
 
 }

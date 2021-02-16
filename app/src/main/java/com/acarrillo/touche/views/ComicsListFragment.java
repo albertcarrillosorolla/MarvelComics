@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
@@ -60,13 +61,17 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
         ((SimpleItemAnimator)mViewBinding.recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         mViewBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mViewBinding.recyclerView.setAdapter(mComicsListAdapter);
-        mViewBinding.recyclerView.setHasFixedSize(true);
         //This fixes problems with Picasso cache and reused viewHolders
         mViewBinding.recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
         mComicsListAdapter.setOnItemClickedListener(
                 (v, item, position) -> {
                     mViewModel.selectExpandedItem(position);
+                });
+        mComicsListAdapter.setOnGoToDetailClickedListener(
+                (v, item, position) -> {
+
+                    Navigation.findNavController(v).navigate(R.id.action_comicsListFragment_to_comicDetailFragment);
                 });
         mViewBinding.recyclerView.setOnScrollChangeListener(
             (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
