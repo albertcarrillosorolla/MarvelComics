@@ -6,28 +6,16 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class ComicsListResponse {
-    @SerializedName("code")
-    @Expose()
-    private int code;
 
     @SerializedName("data")
     @Expose()
     private ComicsListResponseData data;
 
-    public int getCount() {
-        return data.count;
-    }
-
     public List<Comic> getComics() {
         return data.comics;
     }
 
-    public int getCode()
-    {
-        return code;
-    }
-
-    public class ComicsListResponseData {
+    static class ComicsListResponseData {
         @SerializedName("count")
         @Expose()
         public int count;
@@ -36,7 +24,8 @@ public class ComicsListResponse {
         @Expose()
         public List<Comic> comics;
     }
-    public class Comic
+
+    public static class Comic
     {
         @SerializedName("id")
         @Expose()
@@ -54,7 +43,8 @@ public class ComicsListResponse {
         @Expose()
         public List<Image> images;
     }
-    public class Image
+
+    public static class Image
     {
         @SerializedName("path")
         @Expose

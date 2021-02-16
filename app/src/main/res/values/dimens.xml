@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="list_items_height">60dp</dimen>
-    <dimen name="list_item_expanded_height">300dp</dimen>
+    <dimen name="list_item_expanded_height">400dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="big_padding">32dp</dimen>
 </resources>

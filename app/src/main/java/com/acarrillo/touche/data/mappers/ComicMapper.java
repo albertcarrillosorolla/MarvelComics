@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ComicMapper {
-    public List<ComicEntity> getComicsListModelFromResponse(ComicsListResponse comicsListResponse)
+    public List<ComicEntity> getComicsListEntityFromResponse(ComicsListResponse comicsListResponse)
     {
         List<ComicEntity> comicList = new ArrayList<ComicEntity>();
         for (ComicsListResponse.Comic c: comicsListResponse.getComics()) {

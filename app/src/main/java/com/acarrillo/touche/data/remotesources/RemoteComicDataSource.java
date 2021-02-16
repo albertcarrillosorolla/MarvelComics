@@ -1,7 +1,5 @@
 package com.acarrillo.touche.data.remotesources;
 
-import android.app.DownloadManager;
-
 import com.acarrillo.touche.data.DataSource;
 import com.acarrillo.touche.data.mappers.ComicMapper;
 import com.acarrillo.touche.data.remotesources.responses.ComicsListResponse;
@@ -43,7 +41,7 @@ public class RemoteComicDataSource implements DataSource<List<ComicEntity>, Remo
                 if(response.code()!=200)
                     handler.handle(Either.left(new ApiError("Error: "+response.code()+". "+response.message())));
                 else
-                    handler.handle(Either.right(mComicMapper.getComicsListModelFromResponse(response.body())));
+                    handler.handle(Either.right(mComicMapper.getComicsListEntityFromResponse(response.body())));
             }
 
             @Override

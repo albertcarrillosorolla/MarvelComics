@@ -4,27 +4,47 @@ import android.os.Parcel;
 
 public class CharacterEntity implements Entity {
 
-    String image;
+    String mName;
+    String mImage;
+
+    public CharacterEntity(String name, String image){
+        mName = name;
+        mImage = image;
+    }
+
+    public String getName(){
+        return mName;
+    }
+
+    public String getImage(){
+        return mImage;
+    }
+
+    protected CharacterEntity(Parcel in) {
+        mName = in.readString();
+        mImage = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mName);
+        dest.writeString(mImage);
+    }
 
     @Override
     public int describeContents() {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
-
-    public static final Creator<ComicEntity> CREATOR = new Creator<ComicEntity>() {
+    public static final Creator<CharacterEntity> CREATOR = new Creator<CharacterEntity>() {
         @Override
-        public ComicEntity createFromParcel(Parcel in) {
-            return new ComicEntity(in);
+        public CharacterEntity createFromParcel(Parcel in) {
+            return new CharacterEntity(in);
         }
 
         @Override
-        public ComicEntity[] newArray(int size) {
-            return new ComicEntity[size];
+        public CharacterEntity[] newArray(int size) {
+            return new CharacterEntity[size];
         }
     };
 }
