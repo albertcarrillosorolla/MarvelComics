@@ -12,7 +12,11 @@
         tools:layout="@layout/comics_list_fragment">
         <action
             android:id="@+id/action_comicsListFragment_to_comicDetailFragment"
-            app:destination="@id/comicDetailFragment" />
+            app:destination="@id/comicDetailFragment"
+            app:enterAnim="@anim/right_to_left_in"
+            app:exitAnim="@anim/right_to_left_out"
+            app:popEnterAnim="@anim/left_to_right_in"
+            app:popExitAnim="@anim/left_to_right_out" />
     </fragment>
     <fragment
         android:id="@+id/comicDetailFragment"

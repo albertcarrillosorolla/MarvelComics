@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
@@ -70,8 +71,12 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
                 });
         mComicsListAdapter.setOnGoToDetailClickedListener(
                 (v, item, position) -> {
+                    FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
+                            .addSharedElement(v.getRootView().findViewById(R.id.comicItemImage), ""+item.getId())
+                            .build();
+
                     Navigation.findNavController(v).navigate(
-                            ComicsListFragmentDirections.actionComicsListFragmentToComicDetailFragment(item)
+                            ComicsListFragmentDirections.actionComicsListFragmentToComicDetailFragment(item), extras
                     );
                 });
         mViewBinding.recyclerView.setOnScrollChangeListener(

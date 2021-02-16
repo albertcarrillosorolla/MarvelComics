@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.transition.TransitionInflater;
 
 import com.acarrillo.touche.R;
 import com.acarrillo.touche.databinding.ComicDetailFragmentBinding;
@@ -34,7 +35,8 @@ public class ComicDetailFragment extends BaseFragment<ComicDetailViewModel> {
                 comic -> {
                     mViewBinding.title.setText(comic.getTitle());
                     mViewBinding.description.setText(comic.getDescription());
-                    Picasso.get().load(comic.getImage()).into(mViewBinding.headerImage);
+                    if(comic.getImage()!="")
+                        Picasso.get().load(comic.getImage()).into(mViewBinding.headerImage);
                 });
     }
 }

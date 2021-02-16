@@ -30,6 +30,7 @@ public class ComicsListViewHolder extends RecyclerView.ViewHolder {
         }else{
             mBinding.comicItemImage.setVisibility(View.GONE);
         }
+        mBinding.comicItemImage.setTransitionName(comic.getId()+"");
         setExpanded(expanded);
     }
 
