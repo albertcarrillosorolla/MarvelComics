@@ -30,6 +30,12 @@ public class BaseFragment<VM extends ViewModel> extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mViewModel = null;
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mView = view;

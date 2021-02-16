@@ -2,7 +2,9 @@ package com.acarrillo.touche.views;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,18 +26,18 @@ public class ComicDetailFragment extends BaseFragment<ComicDetailViewModel> {
     public ComicDetailFragment() { super(R.layout.comic_detail_fragment); }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         mViewBinding = ComicDetailFragmentBinding.bind(view);
         mViewModel.setComic(getArguments().getParcelable("comic"));
         subscribeToData();
         initRecyclerView();
+        return view;
     }
 
-    @SuppressLint("FragmentLiveDataObserve")
     private void subscribeToData() {
         mViewModel.getComic().observe(
-                this,
+                getViewLifecycleOwner(),
                 comic -> {
                     mViewBinding.title.setText(comic.getTitle());
                     mViewBinding.description.setText(comic.getDescription());
@@ -43,14 +45,14 @@ public class ComicDetailFragment extends BaseFragment<ComicDetailViewModel> {
                         Picasso.get().load(comic.getImage()).into(mViewBinding.headerImage);
                 });
         mViewModel.getCharacters().observe(
-                this,
+                getViewLifecycleOwner(),
                 characters ->{
                     if(characters.size()==0) showNoCharacters();
                     mCharactersListAdapter.setData(characters);
                 }
         );
         mViewModel.getError().observe(
-                this,
+                getViewLifecycleOwner(),
                 error -> showSnackbar(error.getMessage())
         );
     }

@@ -2,17 +2,19 @@ package com.acarrillo.touche.views;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.acarrillo.touche.R;
 import com.acarrillo.touche.databinding.ComicsListFragmentBinding;
+import com.acarrillo.touche.domain.entities.ComicEntity;
 import com.acarrillo.touche.modelviews.ComicsListViewModel;
 import com.acarrillo.touche.views.adapters.ComicsListAdapter;
 import com.acarrillo.touche.views.base.BaseFragment;
@@ -24,31 +26,29 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
     public ComicsListFragment() { super(R.layout.comics_list_fragment); }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mViewBinding = ComicsListFragmentBinding.bind(view);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         subscribeToData();
+        mViewBinding = ComicsListFragmentBinding.bind(view);
         initRecyclerView();
-        mViewModel.loadMoreComics();
-        mActivity.setProgressbar(true);
+        return view;
     }
 
-    @SuppressLint("FragmentLiveDataObserve")
     private void subscribeToData() {
         mViewModel.getComics().observe(
-            this,
+            getViewLifecycleOwner(),
             comics ->{
                 mComicsListAdapter.setData(comics);
                 mActivity.setProgressbar(false);
         });
         mViewModel.getExpandedItemPosition().observe(
-            this,
+                getViewLifecycleOwner(),
             expandedId -> {
                 mComicsListAdapter.setExpandedItem(expandedId);
             }
         );
         mViewModel.getErrors().observe(
-                this,
+                getViewLifecycleOwner(),
                 error -> {
                     showSnackbar(error.getMessage());
                     mActivity.setProgressbar(false);
@@ -56,8 +56,7 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
         );
     }
 
-    private void initRecyclerView()
-    {
+    private void initRecyclerView() {
         mComicsListAdapter = new ComicsListAdapter();
         ((SimpleItemAnimator)mViewBinding.recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         mViewBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
@@ -71,13 +70,7 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
                 });
         mComicsListAdapter.setOnGoToDetailClickedListener(
                 (v, item, position) -> {
-                    FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
-                            .addSharedElement(v.getRootView().findViewById(R.id.comicItemImage), ""+item.getId())
-                            .build();
-
-                    Navigation.findNavController(v).navigate(
-                            ComicsListFragmentDirections.actionComicsListFragmentToComicDetailFragment(item), extras
-                    );
+                    goToComicDetail(v, item);
                 });
         mViewBinding.recyclerView.setOnScrollChangeListener(
             (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
@@ -85,5 +78,10 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
                     mViewModel.loadMoreComics();
                 }
             });
+    }
+
+    private void goToComicDetail(View v, ComicEntity item){
+        Navigation.findNavController(v).navigate(
+                ComicsListFragmentDirections.actionComicsListFragmentToComicDetailFragment(item));
     }
 }

@@ -26,13 +26,15 @@ public class ComicsListViewModel extends ViewModel {
         //This should be injected by dagger
         mGetComicsListUseCase = new UseCaseFactory().getComicsListUseCase(new ComicRepositoryImpl());
 
-        mComicsList = new MutableLiveData<>();
         mExpandedComicItemPosition = new MutableLiveData<>();
         mError = new MutableLiveData<>();
     }
 
-    public LiveData<List<ComicEntity>> getComics()
-    {
+    public LiveData<List<ComicEntity>> getComics() {
+        if(mComicsList==null){
+            mComicsList = new MutableLiveData<>();
+            loadMoreComics();
+        }
         return mComicsList;
     }
 
@@ -60,5 +62,9 @@ public class ComicsListViewModel extends ViewModel {
 
     public void selectExpandedItem(int position) {
         mExpandedComicItemPosition.setValue(position);
+    }
+
+    public boolean alreadyHasSomeComics() {
+        return (mComicsList.getValue()!=null&&mComicsList.getValue().size()>0);
     }
 }
