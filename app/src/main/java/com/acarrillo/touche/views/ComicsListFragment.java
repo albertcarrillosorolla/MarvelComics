@@ -1,13 +1,13 @@
 package com.acarrillo.touche.views;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.acarrillo.touche.R;
 import com.acarrillo.touche.databinding.ComicsListFragmentBinding;
@@ -27,7 +27,7 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
         mViewBinding = ComicsListFragmentBinding.bind(view);
         subscribeToData();
         initRecyclerView();
-        mViewModel.loadComics();
+        mViewModel.loadMoreComics();
         mActivity.setProgressbar(true);
     }
 
@@ -35,32 +35,44 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
     private void subscribeToData() {
         mViewModel.getComics().observe(
             this,
-            result -> result.apply(
-                error -> {
-                    showSnackbar(error.getMessage());
-                    mActivity.setProgressbar(false);
-                },
-                comics ->{
-                    mComicsListAdapter.setData(comics);
-                    mActivity.setProgressbar(false);
-                }));
-        mViewModel.getExpandedItemId().observe(
+            comics ->{
+                mComicsListAdapter.setData(comics);
+                mActivity.setProgressbar(false);
+        });
+        mViewModel.getExpandedItemPosition().observe(
             this,
             expandedId -> {
                 mComicsListAdapter.setExpandedItem(expandedId);
             }
+        );
+        mViewModel.getErrors().observe(
+                this,
+                error -> {
+                    showSnackbar(error.getMessage());
+                    mActivity.setProgressbar(false);
+                }
         );
     }
 
     private void initRecyclerView()
     {
         mComicsListAdapter = new ComicsListAdapter();
-        mComicsListAdapter.setOnItemClickedListener(
-            (v, item, position) -> {
-                mViewModel.selectExpandedItem(item.getId());
-            });
+        ((SimpleItemAnimator)mViewBinding.recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         mViewBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mViewBinding.recyclerView.setAdapter(mComicsListAdapter);
+        mViewBinding.recyclerView.setHasFixedSize(true);
+        //This fixes problems with Picasso cache and reused viewHolders
         mViewBinding.recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
+
+        mComicsListAdapter.setOnItemClickedListener(
+                (v, item, position) -> {
+                    mViewModel.selectExpandedItem(position);
+                });
+        mViewBinding.recyclerView.setOnScrollChangeListener(
+            (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                if (!mViewBinding.recyclerView.canScrollVertically(1)) {
+                    mViewModel.loadMoreComics();
+                }
+            });
     }
 }

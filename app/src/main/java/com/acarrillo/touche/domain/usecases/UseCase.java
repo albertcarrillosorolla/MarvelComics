@@ -1,4 +1,4 @@
-package com.acarrillo.touche.usecases;
+package com.acarrillo.touche.domain.usecases;
 
 import com.acarrillo.touche.domain.utils.ResponseHandler;
 

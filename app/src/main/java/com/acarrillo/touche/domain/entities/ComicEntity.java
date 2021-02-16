@@ -1,10 +1,10 @@
-package com.acarrillo.touche.domain.models;
+package com.acarrillo.touche.domain.entities;
 
 import android.os.Parcel;
 
 import java.util.List;
 
-public class ComicModel implements Model {
+public class ComicEntity implements Entity {
 
     private int mId;
     private String mTitle;
@@ -29,14 +29,14 @@ public class ComicModel implements Model {
 
     List<String> mImages;
 
-    public ComicModel(int id, String title, List<String> images)
+    public ComicEntity(int id, String title, List<String> images)
     {
         mId = id;
         mTitle = title;
         mImages = images;
     }
 
-    protected ComicModel(Parcel in) {
+    protected ComicEntity(Parcel in) {
         mId = in.readInt();
         mTitle = in.readString();
         mImages = in.createStringArrayList();
@@ -54,15 +54,15 @@ public class ComicModel implements Model {
         return 0;
     }
 
-    public static final Creator<ComicModel> CREATOR = new Creator<ComicModel>() {
+    public static final Creator<ComicEntity> CREATOR = new Creator<ComicEntity>() {
         @Override
-        public ComicModel createFromParcel(Parcel in) {
-            return new ComicModel(in);
+        public ComicEntity createFromParcel(Parcel in) {
+            return new ComicEntity(in);
         }
 
         @Override
-        public ComicModel[] newArray(int size) {
-            return new ComicModel[size];
+        public ComicEntity[] newArray(int size) {
+            return new ComicEntity[size];
         }
     };
 }

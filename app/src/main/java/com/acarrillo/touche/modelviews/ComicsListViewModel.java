@@ -5,43 +5,62 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.acarrillo.touche.data.ComicRepositoryImpl;
-import com.acarrillo.touche.domain.models.ComicModel;
-import com.acarrillo.touche.domain.utils.Either;
-import com.acarrillo.touche.usecases.GetComicsListUseCase;
+import com.acarrillo.touche.domain.entities.ComicEntity;
+import com.acarrillo.touche.domain.usecases.GetComicsListUseCase;
+import com.acarrillo.touche.domain.usecases.UseCaseFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ComicsListViewModel extends ViewModel {
+    public final static int ItemsPerPage = 20;
 
-    MutableLiveData<Either<Error, List<ComicModel>>> mComicsList;
-    MutableLiveData<Integer> mExpandedComicItemId;
     GetComicsListUseCase mGetComicsListUseCase;
+
+    MutableLiveData<List<ComicEntity>> mComicsList;
+    MutableLiveData<Error> mError;
+    MutableLiveData<Integer> mExpandedComicItemPosition;
 
     public ComicsListViewModel()
     {
         //TODO: This should be injected by dagger
-        mGetComicsListUseCase = new GetComicsListUseCase(new ComicRepositoryImpl());
+        mGetComicsListUseCase = new UseCaseFactory().getComicsListUseCase(new ComicRepositoryImpl());
+
         mComicsList = new MutableLiveData<>();
-        mExpandedComicItemId = new MutableLiveData<>();
+        mExpandedComicItemPosition = new MutableLiveData<>();
+        mError = new MutableLiveData<>();
     }
 
-    public LiveData<Either<Error,List<ComicModel>>> getComics()
+    public LiveData<List<ComicEntity>> getComics()
     {
         return mComicsList;
     }
 
-    public LiveData<Integer> getExpandedItemId()
+    public LiveData<Integer> getExpandedItemPosition()
     {
-        return mExpandedComicItemId;
+        return mExpandedComicItemPosition;
     }
 
-    public void loadComics()
-    {
+    public LiveData<Error> getErrors() { return mError; }
+
+    public void loadMoreComics() {
+        int offset = 0;
+        if(mComicsList.getValue() != null) offset = mComicsList.getValue().size();
+
         mGetComicsListUseCase.execute(
-                response -> mComicsList.setValue(response), null);
+                (result) -> {
+                    result.apply(
+                            (error) -> mError.setValue(error),
+                            (response) -> {
+                                List<ComicEntity> currentComics = (mComicsList.getValue() == null) ? new ArrayList<>() : mComicsList.getValue();
+                                currentComics.addAll(response);
+                                mComicsList.setValue(currentComics);
+                            }
+                    );
+                }, new GetComicsListUseCase.Params(offset, ItemsPerPage));
     }
-    public void selectExpandedItem(int id)
-    {
-        mExpandedComicItemId.setValue(id);
+
+    public void selectExpandedItem(int position) {
+        mExpandedComicItemPosition.setValue(position);
     }
 }

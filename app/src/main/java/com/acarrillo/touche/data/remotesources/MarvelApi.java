@@ -11,6 +11,8 @@ public interface MarvelApi {
     Call<ComicsListResponse> getComics(
             @Query("ts") String timestamp,
             @Query("apikey") String key,
-            @Query("hash") String hash
+            @Query("hash") String hash,
+            @Query("offset") int offset,
+            @Query("limit") int numItems
     );
 }

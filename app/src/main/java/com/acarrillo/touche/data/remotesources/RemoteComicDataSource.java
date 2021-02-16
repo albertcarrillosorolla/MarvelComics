@@ -1,11 +1,13 @@
 package com.acarrillo.touche.data.remotesources;
 
+import android.app.DownloadManager;
+
 import com.acarrillo.touche.data.DataSource;
 import com.acarrillo.touche.data.mappers.ComicMapper;
 import com.acarrillo.touche.data.remotesources.responses.ComicsListResponse;
 import com.acarrillo.touche.data.exceptions.ApiError;
 import com.acarrillo.touche.data.utils.HashUtil;
-import com.acarrillo.touche.domain.models.ComicModel;
+import com.acarrillo.touche.domain.entities.ComicEntity;
 import com.acarrillo.touche.domain.utils.Either;
 import com.acarrillo.touche.domain.utils.ResponseHandler;
 
@@ -16,7 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RemoteComicDataSource implements DataSource<List<ComicModel>> {
+public class RemoteComicDataSource implements DataSource<List<ComicEntity>, RemoteComicDataSource.QueryParams> {
 
     ComicMapper mComicMapper;
 
@@ -27,13 +29,13 @@ public class RemoteComicDataSource implements DataSource<List<ComicModel>> {
     }
 
     @Override
-    public void getData(ResponseHandler<List<ComicModel>> handler) {
+    public void getData(ResponseHandler<List<ComicEntity>> handler, QueryParams queryParams) {
 
         String ts = ""+new Date().getTime();
         String apikey = MarvelApiConsts.API_KEY;
         String hash = HashUtil.md5(ts + MarvelApiConsts.PRIVATE_KEY + MarvelApiConsts.API_KEY);
 
-        Call<ComicsListResponse> call = MarvelApiFactory.getMarvelApi().getComics( ts, apikey, hash );
+        Call<ComicsListResponse> call = MarvelApiFactory.getMarvelApi().getComics( ts, apikey, hash, queryParams.getOffset(), queryParams.getNumItems() );
 
         call.enqueue(new Callback<ComicsListResponse>() {
             @Override
@@ -49,5 +51,24 @@ public class RemoteComicDataSource implements DataSource<List<ComicModel>> {
                 handler.handle(Either.left(new ApiError(t.getMessage())));
             }
         });
+    }
+
+    public static class QueryParams{
+
+        int mOffset;
+        int mNumItems;
+
+        public QueryParams(int offset, int numItems){
+            mOffset = offset;
+            mNumItems = numItems;
+        }
+
+        int getOffset(){
+            return mOffset;
+        }
+
+        int getNumItems(){
+            return mNumItems;
+        }
     }
 }

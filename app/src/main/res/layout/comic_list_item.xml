@@ -1,57 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/comicItemContainer"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_items_height"
     app:cardBackgroundColor="@color/black"
     app:cardCornerRadius="0dp">
 
-    <FrameLayout
+    <ImageView
+        android:id="@+id/comicItemImage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
-        <ImageView
-            android:id="@+id/comicItemImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.7"
+        android:background="@drawable/horizontal_gradient" />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.7"
-            android:background="@drawable/horizontal_gradient" />
+    <TextView
+        android:id="@+id/comicItemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_items_height"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
+        android:text="Title"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
 
-        <TextView
-            android:id="@+id/comicItemTitle"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/list_items_height"
-            android:layout_gravity="center|top"
-            android:gravity="center_vertical"
-            android:lines="1"
-            android:paddingStart="@dimen/standard_padding"
-            android:paddingEnd="@dimen/standard_padding"
-            android:text="Title"
-            android:textColor="@color/white"
-            android:textSize="22sp" />
+    <FrameLayout
+        android:id="@+id/comicItemDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
-        <FrameLayout
-            android:id="@+id/comicItemDetails"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/list_item_expanded_height"
-            android:visibility="invisible">
-
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:layout_margin="@dimen/standard_padding"
-                android:background="@null"
-                app:srcCompat="@drawable/ic_characters" />
-        </FrameLayout>
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="@dimen/standard_padding"
+            android:background="@null"
+            android:src="@drawable/ic_characters" />
     </FrameLayout>
 
 </androidx.cardview.widget.CardView>
