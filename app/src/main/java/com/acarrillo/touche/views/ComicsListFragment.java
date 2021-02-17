@@ -32,7 +32,6 @@ public class ComicsListFragment extends BaseFragment<ComicsListViewModel> {
                             showSnackbar(error.getMessage());
                         },
                         comics ->{
-                            if(comics.size()>0)
                                mViewBinding.tvTitle.setText(comics.get(0).getTitle());
                         }));
     }

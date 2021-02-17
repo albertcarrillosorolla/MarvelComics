@@ -1,4 +1,4 @@
-package com.acarrillo.touche.data.datasources.responses;
+package com.acarrillo.touche.data.remotesources.responses;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -27,7 +27,7 @@ public class ComicsListResponse {
         return code;
     }
 
-    class ComicsListResponseData {
+    public class ComicsListResponseData {
         @SerializedName("count")
         @Expose()
         public int count;
@@ -36,14 +36,14 @@ public class ComicsListResponse {
         @Expose()
         public List<Comic> comics;
     }
-    class Comic
+    public class Comic
     {
         @SerializedName("id")
         @Expose()
-        String id;
+        public int id;
 
         @SerializedName("title")
         @Expose()
-        String title;
+        public String title;
     }
 }

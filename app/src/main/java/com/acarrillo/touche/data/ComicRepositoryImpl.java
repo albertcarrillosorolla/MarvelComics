@@ -1,7 +1,7 @@
 package com.acarrillo.touche.data;
 
-import com.acarrillo.touche.data.datasources.LocalComicDataSource;
-import com.acarrillo.touche.data.datasources.RemoteComicDataSource;
+import com.acarrillo.touche.data.localsources.LocalComicDataSource;
+import com.acarrillo.touche.data.remotesources.RemoteComicDataSource;
 import com.acarrillo.touche.data.exceptions.NotImplementedError;
 import com.acarrillo.touche.domain.models.ComicModel;
 import com.acarrillo.touche.domain.repositories.ComicRepository;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ComicRepositoryImpl implements ComicRepository {
-    CachePolicy mCachePolicy;
+    CachePolicy mCachePolicy = CachePolicy.NEVER;
     LocalComicDataSource mLocalComicDataSource;
     RemoteComicDataSource mRemoteComicDataSource;
 
@@ -30,10 +30,7 @@ public class ComicRepositoryImpl implements ComicRepository {
             handler.handle(Either.left(new NotImplementedError()));
             return;
         }
-
-        List<ComicModel> comics = new ArrayList<>();
-        comics.add(new ComicModel(11298734, "Comic one", Arrays.asList("image.jpg", "image2.jpg")));
-        handler.handle(Either.right(comics));
+        mRemoteComicDataSource.getData(handler);
     }
 
     @Override
