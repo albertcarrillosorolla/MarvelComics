@@ -3,6 +3,8 @@
 Marvel Comics is an Android App that shows a list of Marvel comics and a detail view of the comic with a short description and the main characters of the story.
 This data is taken from the public MARVEL API: https://developer.marvel.com
 
+![Screenshot 0](/screenshot_0.png)![Screenshot 1](/screenshot_1.png)
+
 Github link: https://github.com/albertcarrillosorolla/MarvelComics.git
 
 ## USAGE
