@@ -5,6 +5,13 @@ This data is taken from the public MARVEL API: https://developer.marvel.com
 
 Github link: https://github.com/albertcarrillosorolla/MarvelComics.git
 
+## USAGE
+
+1. Checkout from Android Studio
+2. Duplicate secrets.properties-put-here-your-api-keys file
+3. Rename the new file as secrets.properties
+4. Add your Marvel API public and private keys. This file is included in .gitignore, so your keys will not be published.
+
 ## TOOLS
 
 Marvel Comics has been developed with Android Studio 4.1.2 using exclusively JAVA.
